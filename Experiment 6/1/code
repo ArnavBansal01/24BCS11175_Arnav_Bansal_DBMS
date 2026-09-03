@@ -19,10 +19,14 @@ INSERT INTO employees (emp_id, emp_name, emp_salary, emp_city) VALUES
 
 SELECT * FROM EMPLOYEES
 
--- SIMPLE VIEW
-CREATE VIEW EMP_VIEW AS
-SELECT emp_id, emp_name FROM employees
-WHERE EMP_ID=101
 
-SELECT * FROM EMP_VIEW
+CREATE VIEW Unsold_Items AS
+SELECT ProductName, Category
+FROM Products p
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM Order_Details od
+    WHERE p.ProductID = od.ProductID
+);
 
+select *from Unsold_Items
